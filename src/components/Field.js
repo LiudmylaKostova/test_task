@@ -1,19 +1,8 @@
-const NameField = ({ value, name }) => {
-  const { path, label } = value;
+const NameField = ({ value, name, label }) => {
   return (
     <div className="wrapper">
-      <input
-        className="input"
-        type={path}
-        name={label}
-        value={name}
-      />
-      <label
-        className="label"
-        // htmlFor={value.component}
-      >
-        {label}
-      </label>
+      <input className="input" type="text" name={name} value={value} />
+      <label className="label">{label}</label>
     </div>
   );
 };

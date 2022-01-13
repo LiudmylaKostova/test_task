@@ -3,44 +3,52 @@ import NameField from "./Field";
 import DateField from "./Date";
 import UpdateBtn from "./Update";
 
-let name, date;
-
 const Form = ({ formData }) => {
-  const onSubmit = (e) => {
-    e.preventDefault();
-  };
-  const viewValues = Object.values(formData.view);
-  const childrenValues = Object.values(viewValues[0].children);
-  const childrenKeys = Object.keys(viewValues[0].children);
-  // debugger;
-  const dataValues = Object.values(formData.data);
-  console.log(dataValues[0]);
+  const { title, children } = Object.values(formData.view)[0];
+  // console.log(children);
 
-  const keys = Object.keys(dataValues[0]);
-  for (let i = 0; i < keys.length; i++) {
-    date = dataValues[0][keys[0]].toLocaleString().slice(0, 10);
-    name = dataValues[0][keys[1]];
-  }
+  const data = Object.values(formData.data)[0];
+  // console.log(data);
+  // console.log(Object.keys(children).map((key) => ({...children[key], id: {key}})));
 
   return (
-    <form onSubmit={onSubmit}>
-      <h2>{viewValues[0].title}</h2>
+    <form>
+      <h2>{title}</h2>
+      {Object.keys(children).map((key) => {
+        // console.log(key);
+        // console.log(children[key]);
+        const { component, label, name, path, text } = children[key];
+        // console.log(data[path]);
 
-      {childrenValues.map((value) => {
-        switch (value.component) {
+        switch (component) {
           case "Text":
             return (
-              <NameField key={childrenKeys[0]} value={value} name={name} />
+              <NameField
+                key={key}
+                value={data[path]}
+                name={name}
+                label={label}
+              />
             );
           case "Date":
             return (
-              <DateField key={childrenKeys[1]} value={value} date={date} />
+              <DateField
+                key={key}
+                value={data[path].toLocaleString().slice(0, 10)}
+                name={name}
+                label={label}
+              />
             );
           case "Command":
-            return <UpdateBtn key={childrenKeys[2]} value={value} />;
+            return <UpdateBtn key={key} text={text} />;
           default:
             return (
-              <NameField key={childrenKeys[0]} value={value} name={name} />
+              <NameField
+                key={key}
+                value={data[path]}
+                name={name}
+                label={label}
+              />
             );
         }
       })}

@@ -1,17 +1,10 @@
-const DateField = ({ value, date }) => {
-  const {path, label} = value
-    return (
+const DateField = ({ value, name, label }) => {
+  return (
     <div className="wrapper">
-      <input
-        className="input"
-        type={path}
-        name={label}
-        value={date}
-      />
+      <input className="input" type="date" name={name} value={value} />
       <label className="label">{label}</label>
     </div>
   );
 };
 
 export default DateField;
-

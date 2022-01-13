@@ -1,12 +1,7 @@
-const UpdateBtn = ({ value }) => {
+const UpdateBtn = ({ text }) => {
   return (
     <div className="wrapp">
-      <button
-        className="button"
-        // key={childrenKeys[2]}
-      >
-        {value.text}
-      </button>
+      <button className="button">{text}</button>
     </div>
   );
 };
